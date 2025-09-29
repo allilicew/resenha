@@ -1,86 +1,454 @@
 resenha
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Resenhas de Livros</title>
+    <title>Cantinho dos Livros 📚</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            min-height: 100vh;
         }
-        header {
-            background-color: #e89eb7;
-            color: white;
+
+        .header {
+            background: linear-gradient(90deg, #f9a8d4 0%, #f472b6 100%);
+            padding: 2rem;
             text-align: center;
-            padding: 15px;
+            box-shadow: 0 4px 20px rgba(244, 114, 182, 0.3);
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 0;
+
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
+
+        .header p {
+            color: #fdf2f8;
+            margin: 0.5rem 0 0 0;
+            font-size: 1.1rem;
+        }
+
         .container {
-            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
-        .book {
-            background-color: #fff;
+
+        .welcome-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(244, 114, 182, 0.1);
+            border: 2px solid #fce7f3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '🐱';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .welcome-section::after {
+            content: '☕';
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            font-size: 1.8rem;
+            opacity: 0.7;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(244, 114, 182, 0.1);
+            border: 2px solid #fce7f3;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(244, 114, 182, 0.2);
+        }
+
+        .book-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .book-icon {
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, #f9a8d4, #f472b6);
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-        .book h2 {
-            font-size: 1.8em;
-            color: #333;
-        }
-        .book p {
-            line-height: 1.6;
-            font-size: 1.1em;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #e89eb7;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3);
         }
-        .book img {
-            width: 150px;
-            height: auto;
-            float: left;
-            margin-right: 20px;
-            border-radius: 8px;
+
+        .book-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #be185d;
+            margin: 0;
+        }
+
+        .book-author {
+            color: #ec4899;
+            font-style: italic;
+            margin: 0.2rem 0;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .stars {
+            color: #f59e0b;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .review-text {
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .book-card::before {
+            content: '🐾';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.2rem;
+            opacity: 0.6;
+        }
+
+        .add-review-btn {
+            background: linear-gradient(135deg, #f9a8d4, #f472b6);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+            margin: 2rem auto;
+            display: block;
+        }
+
+        .add-review-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4);
+        }
+
+        .coffee-decoration {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cat-decoration {
+            position: fixed;
+            top: 50%;
+            left: 1rem;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: float 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            border: 2px solid #fce7f3;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ec4899;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #be185d;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #fce7f3;
+            border-radius: 10px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #f9a8d4, #f472b6);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .cat-decoration, .coffee-decoration {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Resenhas de Livros</h1>
+    <div class="coffee-decoration">☕</div>
+    <div class="cat-decoration">🐱</div>
+
+    <header class="header">
+        <h1>🌸 Cantinho dos Livros 🌸</h1>
+        <p>Resenhas aconchegantes com muito amor e cafezinho ☕</p>
     </header>
 
     <div class="container">
-        <div class="book">
-            <h2>📖 AMÊNDOAS, de Won-pyung Sohn</h2>
-            <img src="https://m.media-amazon.com/images/I/81fl1y+kJqL._AC_SY679_.jpg" alt="Capa do livro Amêndoas">
-            <p><strong>Resenha:</strong> "Amêndoas" de Won Pyung Sohn conta a história de Yunjae, um adolescente diagnosticado com Alexitimia, uma condição neurológica que dificulta a sua capacidade de reconhecer e expressar emoções. O livro explora sua jornada de autoconhecimento e suas tentativas de se conectar com os outros, enfrentando os desafios de viver em um mundo emocionalmente complexo. A narrativa é sensível e provoca reflexões sobre a condição humana e a forma como lidamos com as nossas emoções.</p>
+        <div class="welcome-section">
+            <h2 style="color: #be185d; margin-top: 0;">Bem-vinda ao nosso cantinho! 💕</h2>
+            <p style="color: #374151; line-height: 1.6;">
+                Aqui você encontra resenhas carinhosas de livros que aquecem o coração. 
+                Pegue seu chá favorito, se aconchegue e descubra sua próxima leitura especial! 
+                Cada livro é uma nova aventura esperando para ser descoberta. 📖✨
+            </p>
         </div>
 
-        <div class="book">
-            <h2>🇯🇵 Relatos de um Gato Viajante, de Hiro Arikawa</h2>
-            <img src="https://m.media-amazon.com/images/I/91tC0gX6M6L._AC_SY679_.jpg" alt="Capa do livro Relatos de um Gato Viajante">
-            <p><strong>Resenha:</strong> "Relatos de um Gato Viajante" de Hiro Arikawa conta a história de um gato chamado Neko que é adotado por Satoru, um homem solitário. Juntos, eles viajam pelo Japão, e Neko narra a jornada observando as pessoas que Satoru encontra ao longo do caminho. Cada uma dessas pessoas tem um papel importante no passado de Satoru, e, enquanto Satoru revê sua vida, Neko reflete sobre as relações humanas, a perda e a busca por pertencimento. O livro mistura momentos de ternura e humor com uma profunda reflexão sobre amizade, solidão e superação. Ao final, é uma história sobre como as conexões podem curar e transformar a vida.</p>
+        <div class="books-grid" id="booksGrid">
+            <div class="book-card">
+                <div class="book-header">
+                    <div class="book-icon">📚</div>
+                    <div>
+                        <h3 class="book-title">O Pequeno Príncipe</h3>
+                        <p class="book-author">Antoine de Saint-Exupéry</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                    <span style="color: #6b7280;">5/5</span>
+                </div>
+                <p class="review-text">
+                    Uma obra-prima atemporal que nos ensina sobre amizade, amor e os valores mais importantes da vida. 
+                    Cada página é um abraço caloroso que nos lembra da criança que existe dentro de nós. 
+                    Perfeito para ler numa tarde chuvosa com uma xícara de chocolate quente! 🍫
+                </p>
+            </div>
+
+            <div class="book-card">
+                <div class="book-header">
+                    <div class="book-icon">🌙</div>
+                    <div>
+                        <h3 class="book-title">Anne de Green Gables</h3>
+                        <p class="book-author">L.M. Montgomery</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                    <span style="color: #6b7280;">5/5</span>
+                </div>
+                <p class="review-text">
+                    A história de Anne é pura magia! Uma menina cheia de sonhos e imaginação que conquista 
+                    nosso coração desde a primeira página. Suas aventuras em Green Gables são como um 
+                    abraço aconchegante que nos faz acreditar na beleza da vida simples. 🌻
+                </p>
+            </div>
+
+            <div class="book-card">
+                <div class="book-header">
+                    <div class="book-icon">🦋</div>
+                    <div>
+                        <h3 class="book-title">Orgulho e Preconceito</h3>
+                        <p class="book-author">Jane Austen</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                    <span style="color: #6b7280;">5/5</span>
+                </div>
+                <p class="review-text">
+                    Um romance clássico que nunca envelhece! Elizabeth e Darcy nos mostram que o amor 
+                    verdadeiro supera qualquer obstáculo. Jane Austen escreve com uma delicadeza que 
+                    nos transporta para a Inglaterra do século XIX. Ideal para ler ao lado da lareira! 🔥
+                </p>
+            </div>
+        </div>
+
+        <button class="add-review-btn" onclick="openModal()">
+            ✨ Adicionar Nova Resenha ✨
+        </button>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="color: #be185d; margin-top: 0;">📝 Nova Resenha</h2>
+            <form id="reviewForm" onsubmit="addReview(event)">
+                <div class="form-group">
+                    <label for="bookTitle">Título do Livro:</label>
+                    <input type="text" id="bookTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookAuthor">Autor:</label>
+                    <input type="text" id="bookAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookRating">Avaliação (1-5 estrelas):</label>
+                    <input type="number" id="bookRating" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookReview">Sua Resenha:</label>
+                    <textarea id="bookReview" placeholder="Conte-nos o que achou deste livro..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">💕 Publicar Resenha</button>
+            </form>
         </div>
     </div>
 
-    <div class="footer">
-        <p>© 2025 Resenhas de Livros | Feito com amor por Alice ❤️ </p>
-    </div>
-</body>
+    <script>
+        function openModal() {
+            document.getElementById('reviewModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+            document.getElementById('reviewForm').reset();
+        }
+
+        function addReview(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('bookTitle').value;
+            const author = document.getElementById('bookAuthor').value;
+            const rating = parseInt(document.getElementById('bookRating').value);
+            const review = document.getElementById('bookReview').value;
+            
+            const bookIcons = ['📚', '🌙', '🦋', '🌸', '🍃', '⭐', '💫', '🌺'];
+            const randomIcon = bookIcons[Math.floor(Math.random() * bookIcons.length)];
+            
+            const stars = '⭐'.repeat(rating);
+            
+            const bookCard = document.createElement('div');
+            bookCard.className = 'book-card';
+            bookCard.innerHTML = `
+                <div class="book-header">
+                    <div class="book-icon">${randomIcon}</div>
+                    <div>
+                        <h3 class="book-title">${title}</h3>
+                        <p class="book-author">${author}</p>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="stars">${stars}</span>
+                    <span style="color: #6b7280;">${rating}/5</span>
+                </div>
+                <p class="review-text">${review}</p>
+            `;
+            
+            document.getElementById('booksGrid').appendChild(bookCard);
+            closeModal();
+            
+            // Animação suave para o novo card
+            bookCard.style.opacity = '0';
+            bookCard.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                bookCard.style.transition = 'all 0.5s ease';
+                bookCard.style.opacity = '1';
+                bookCard.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('reviewModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986c872940a6544b',t:'MTc1OTE1OTg5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
